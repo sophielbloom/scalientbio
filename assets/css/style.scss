@@ -39,10 +39,12 @@ body {
 }
 
 .project-name {
-    align-self: center;
-    max-width: 500px;
+    img {
+        max-width: 100px;
+    }
 }
 
 .site-footer {
     text-align: center;
+    align-items: center;
 }
