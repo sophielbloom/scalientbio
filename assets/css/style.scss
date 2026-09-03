@@ -1,5 +1,7 @@
-@import "jekyll-theme-cayman";
-@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Lexend+Deca:wght@100..900&display=swap');
+---
+---
+
+@import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Lexend+Deca:wght@100..900&display=swap");
 
 $header-heading-color: #004951;
 $header-bg-color: #c8d1d9;
@@ -10,6 +12,8 @@ $body-text-color: #303638;
 $body-link-color: #1d9b9b;
 $blockquote-text-color: #f4402e;
 
+@import "jekyll-theme-cayman";
+
 body {
     margin: 0;
     background: #fffcf6;
@@ -18,12 +22,7 @@ body {
 }
 
 .main-content {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: "Lexend Deca", sans-serif;
     }
 }
