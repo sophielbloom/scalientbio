@@ -16,9 +16,32 @@ $blockquote-text-color: #f4402e;
 
 body {
     margin: 0;
-    background: #fffcf6;
+    background: #f0f0f0;
     text-align: left;
     font-family: "Didact Gothic", sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: rgba(244, 46, 64, 0.7);
+  background-color: rgba(244, 46, 64, 0.1);
+  border-color: rgba(244, 46, 64, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.3rem;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    color: rgba(244, 46, 64, 0.8);
+    text-decoration: none;
+    background-color: rgba(244, 46, 64, 0.2);
+    border-color: rgba(244, 46, 64, 0.3);
+  }
+
+  + .btn {
+    margin-left: 1rem;
+  }
 }
 
 .main-content {
