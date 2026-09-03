@@ -9,8 +9,21 @@ $section-headings-color: #004951 !default;
 $body-text-color: #303638 !default;
 $body-link-color: #1d9b9b !default;
 $blockquote-text-color: #f4402e !default;
+
 body {
     margin: 0;
     background: #fffcf6;
     text-align: left;
+    font-family: "Didact Gothic", sans-serif;
+}
+
+.main-content {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Lexend Deca", sans-serif;
+    }
 }
