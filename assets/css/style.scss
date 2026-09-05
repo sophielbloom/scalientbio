@@ -40,16 +40,16 @@ body {
 
 .page-header img {
     display: block;
-    width: clamp(120px, 50vw, 600px);
+    width: clamp(120px, 45vw, 500px);
     height: auto;
-    margin: 0 auto;
+    margin: 0 auto 1rem;
 }
 .site-footer {
     text-align: center;
 }
 .site-footer img {
     display: block;
-    width: clamp(25px, 15vw, 50px);
+    width: clamp(50px, 15vw, 100px);
     height: auto;
-    margin: 3rem auto;
+    margin: 1rem auto 3rem;
 }
