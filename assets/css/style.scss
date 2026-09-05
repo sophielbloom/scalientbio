@@ -40,7 +40,7 @@ body {
 
 .page-header img {
     display: block;
-    width: clamp(120px, 25vw, 600px);
+    width: clamp(120px, 50vw, 600px);
     height: auto;
     margin: 0 auto;
 }
@@ -49,7 +49,7 @@ body {
 }
 .site-footer img {
     display: block;
-    width: clamp(50px, 25vw, 120px);
+    width: clamp(25px, 15vw, 50px);
     height: auto;
-    margin: 0 auto;
+    margin: 3rem auto;
 }
