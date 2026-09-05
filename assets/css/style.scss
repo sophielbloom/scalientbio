@@ -38,14 +38,18 @@ body {
     }
 }
 
-.page-header img,
-.site-footer img {
+.page-header img {
     display: block;
-    width: clamp(120px, 25vw, 320px);
+    width: clamp(120px, 25vw, 600px);
     height: auto;
     margin: 0 auto;
 }
-
 .site-footer {
     text-align: center;
+}
+.site-footer img {
+    display: block;
+    width: clamp(50px, 25vw, 120px);
+    height: auto;
+    margin: 0 auto;
 }
