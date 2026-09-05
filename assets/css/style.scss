@@ -38,13 +38,13 @@ body {
     }
 }
 
-.project-name {
-    img {
-        max-width: 250px;
-    }
-}
-
+.page-header,
 .site-footer {
     text-align: center;
-    align-items: center;
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
 }
