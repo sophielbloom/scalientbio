@@ -3,6 +3,12 @@ layout: default
 title: Home
 ---
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scalient Bio — AlloTox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,6 +23,14 @@ title: Home
     }
 
     html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
 
     /* ── NAV ── */
     nav {
@@ -90,6 +104,7 @@ title: Home
       gap: 4rem; align-items: start;
     }
     .about-stats { display: flex; flex-direction: column; gap: 2rem; }
+    .stat-item {}
     .stat-item .n {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.5rem, 5vw, 4rem);
@@ -115,6 +130,7 @@ title: Home
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 6rem; align-items: center;
     }
+    .pill-wrap {}
     .pill-legend {
       display: flex; flex-direction: column; gap: 0.55rem;
       margin-bottom: 1.5rem;
@@ -144,6 +160,7 @@ title: Home
     .pill-nme  { background: rgba(42,181,178,0.45); }
     .pill-fail { background: transparent; border: 1.2px solid rgba(40,56,48,0.18); }
 
+    .pills-text {}
     .pills-text h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.8rem, 3.5vw, 3rem);
@@ -195,6 +212,7 @@ title: Home
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
     .team-member.vis { opacity: 1; transform: none; }
+    .tm-info {}
     .tm-role {
       font-size: 0.68rem; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--accent);
@@ -257,12 +275,10 @@ title: Home
   </style>
 </head>
 <body>
-    <h1>Hello World</h1>
-      <!-- <a href="contact.html">Contact Us</a>-->
 
   <!-- NAV -->
   <nav>
-    <!-- <a href="#" class="logo">scalient<sup>bio</sup></a>-->
+    <a href="#" class="logo">scalient<sup>bio</sup></a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#team">Team</a>
@@ -272,16 +288,12 @@ title: Home
 
   <!-- HERO -->
   <section class="hero">
-    <!--<div class="hero-text">
+    <div class="hero-text">
       <div class="hero-eyebrow">Alzheimer's research · AI toxicology</div>
       <h1>Predicting which preclinical<br>studies are <em>worth running.</em></h1>
     </div>
     <div class="hero-canvas-wrap">
       <canvas id="bg"></canvas>
-    </div> -->
-    <div>
-      <div >Alzheimer's research · AI toxicology</div>
-      <h1>Predicting which preclinical<br>studies are <em>worth running.</em></h1>
     </div>
   </section>
 
@@ -372,4 +384,119 @@ title: Home
   <footer>
     <p>© 2026 Scalient Bio</p>
   </footer>
+
+<script>
+/* ═══ THREE.JS – HERO BACKGROUND ═══ */
+(function () {
+  var canvas   = document.getElementById('bg');
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  renderer.setClearColor(0x000000, 0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  function resize() {
+    var w = canvas.parentElement.offsetWidth;
+    var h = canvas.parentElement.offsetHeight;
+    renderer.setSize(w, h);
+    cam.aspect = w / h;
+    cam.updateProjectionMatrix();
+  }
+
+  var scene = new THREE.Scene();
+  var cam   = new THREE.PerspectiveCamera(42, 1, 0.1, 200);
+  cam.position.set(0, 0, 13);
+
+  scene.add(new THREE.AmbientLight(0xD8EAE0, 0.7));
+  var sun = new THREE.DirectionalLight(0xffffff, 0.85); sun.position.set(3, 5, 5); scene.add(sun);
+  var fill = new THREE.DirectionalLight(0xC0DDD0, 0.4); fill.position.set(-4, -2, 3); scene.add(fill);
+
+  /* Same green ribbons but using a muted sage that matches the new cream palette */
+  var mat = new THREE.MeshPhongMaterial({
+    color:    new THREE.Color('#5BBFBC'),
+    specular: new THREE.Color('#A8E0DE'),
+    shininess: 18, side: THREE.DoubleSide
+  });
+
+  function mkTube(pts, r, closed) {
+    var c = new THREE.CatmullRomCurve3(pts, !!closed);
+    return new THREE.Mesh(new THREE.TubeGeometry(c, 120, r, 11, !!closed), mat);
+  }
+
+  var top = new THREE.Group();
+  top.position.set(1, 4.5, -1);
+  top.add(mkTube([new THREE.Vector3(-3.5,0,0),new THREE.Vector3(-1,2.5,1.8),new THREE.Vector3(2,2.2,0.5),new THREE.Vector3(3.5,0,-0.8),new THREE.Vector3(1.5,-2,-1.5),new THREE.Vector3(-2,-1.2,-0.2)], 0.32, true));
+  top.add(mkTube([new THREE.Vector3(-2.2,1,-1.2),new THREE.Vector3(0.5,3.2,0.5),new THREE.Vector3(2.8,0.8,1.2),new THREE.Vector3(0,-1.5,-0.8)], 0.24, true));
+  top.add(mkTube([new THREE.Vector3(-4.5,-1,0.8),new THREE.Vector3(-1.5,3,-0.5),new THREE.Vector3(1.5,3.5,0.8),new THREE.Vector3(4.5,0.5,-0.5)], 0.18, false));
+  top.add(mkTube([new THREE.Vector3(-1,1.5,2),new THREE.Vector3(2.5,-0.5,1),new THREE.Vector3(1,-2.5,-1),new THREE.Vector3(-2,-0.5,-1.5)], 0.14, true));
+  scene.add(top);
+
+  var bot = new THREE.Group();
+  bot.position.set(-1.5, -4.5, -1);
+  bot.add(mkTube([new THREE.Vector3(-3,0,1),new THREE.Vector3(-0.5,-2.5,-0.5),new THREE.Vector3(2.5,-2,0.5),new THREE.Vector3(3.5,0.5,-1),new THREE.Vector3(1,2,-0.5),new THREE.Vector3(-2,1,1.2)], 0.34, true));
+  bot.add(mkTube([new THREE.Vector3(-2.5,1.5,-0.5),new THREE.Vector3(0.8,-2,1.5),new THREE.Vector3(3.2,0.5,0),new THREE.Vector3(0,2.5,-1.2)], 0.22, true));
+  bot.add(mkTube([new THREE.Vector3(-4.2,0.5,0.5),new THREE.Vector3(-1,-3,-0.5),new THREE.Vector3(2,-2.5,0.8),new THREE.Vector3(4,1,-0.5)], 0.16, false));
+  scene.add(bot);
+
+  var scrollY = 0;
+  window.addEventListener('scroll', function () { scrollY = window.scrollY; }, { passive: true });
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  var clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    var t = clock.getElapsedTime(), sf = scrollY * 0.0005;
+    top.rotation.y = t * 0.12 + sf;
+    top.rotation.x = Math.sin(t * 0.18) * 0.1;
+    top.rotation.z = Math.cos(t * 0.10) * 0.06;
+    bot.rotation.y = -t * 0.10 - sf * 0.5;
+    bot.rotation.x = Math.cos(t * 0.15) * 0.09;
+    bot.rotation.z = Math.sin(t * 0.12) * 0.07;
+    renderer.render(scene, cam);
+  }
+  animate();
+})();
+
+/* ═══ PILL GRID ═══ */
+(function () {
+  var grid = document.getElementById('pill-grid');
+  if (!grid) return;
+  var cols = 13, rows = 12;
+  for (var i = 0; i < cols * rows; i++) {
+    var row = Math.floor(i / cols), col = i % cols;
+    var el = document.createElement('div');
+    el.className = 'pill ';
+    if      (row === 0 && col === 0)  el.className += 'pill-ad';
+    else if (row === 0 && col < 5)   el.className += 'pill-sm';
+    else if (row === 1 && col < 8)   el.className += 'pill-sm';
+    else if (row === 2 && col < 5)   el.className += 'pill-nme';
+    else if (row === 3 && col < 4)   el.className += 'pill-nme';
+    else                              el.className += 'pill-fail';
+    grid.appendChild(el);
+  }
+})();
+
+/* ═══ SCROLL REVEAL ═══ */
+(function () {
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        var d = parseInt(e.target.dataset.delay || 0);
+        setTimeout(function () { e.target.classList.add('vis'); }, d);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  var ids = ['about-text','s1','s2','s3','about-body',
+             'pill-wrap','pills-h','pills-p','pills-m',
+             'team-h','tm1','tm2','tm3'];
+  ids.forEach(function (id, i) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.dataset.delay = Math.min(i, 3) * 80;
+    obs.observe(el);
+  });
+  document.querySelectorAll('.fade-in').forEach(function (el) { obs.observe(el); });
+})();
+</script>
 </body>
